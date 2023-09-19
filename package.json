@@ -1,25 +1,23 @@
 {
-  "name": "digital_invoice",
+  "name": "api",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "concurrently \"npm run server\" \"npm run client\"",
-    "server": "nodemon api/index.js",
-    "client": "npm start --prefix client",
-    "dev": "node api/index.js",
-    "data:import": "node api/seederScript.js"
+    "start": "nodemon index.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "concurrently": "^8.2.1",
+    "concurrency": "^0.1.4",
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
     "mongoose": "^7.5.2",
+    "netlify-lambda": "^2.0.16",
     "nodemon": "^3.0.1",
+    "serverless-http": "^3.2.0",
     "sord": "^0.0.3"
   }
 }
