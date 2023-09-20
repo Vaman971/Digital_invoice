@@ -35,7 +35,6 @@ app.get('/product/:id', (req,res)=>{
 app.get('/service/:id', (req,res)=>{
     res.sendFile(path.join(__dirname,"/client/build/index.html"));
 })
-
 // Routes
 app.use('/api/products',productRoutes);
 app.use('/api/services',serviceRoutes);
