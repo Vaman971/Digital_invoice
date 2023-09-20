@@ -21,6 +21,21 @@ app.get('/', (req,res)=>{
     res.json({ message: "Api running successfully"});
 })
 
+app.get('/product', (req,res)=>{
+    res.sendFile(path.join(__dirname,"/client/build/index.html"));
+})
+
+app.get('/service', (req,res)=>{
+    res.sendFile(path.join(__dirname,"/client/build/index.html"));
+})
+
+app.get('/product/:id', (req,res)=>{
+    res.sendFile(path.join(__dirname,"/client/build/index.html"));
+})
+app.get('/service/:id', (req,res)=>{
+    res.sendFile(path.join(__dirname,"/client/build/index.html"));
+})
+
 // Routes
 app.use('/api/products',productRoutes);
 app.use('/api/services',serviceRoutes);

@@ -7,7 +7,7 @@ export const addToCart = (id, qty) => async (dispatch, getState) => {
     try {
         // console.log("before fetching data");
         // console.log("id "+id);
-        const {data} = await axios.get(`${process.env.BASE_URL}/api/products/${id}`);
+        const {data} = await axios.get(`/api/products/${id}`);
         // console.log("after fetching data");
 
     dispatch({
