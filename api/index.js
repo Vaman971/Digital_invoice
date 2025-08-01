@@ -1,15 +1,19 @@
 const express = require('express');
 const dotenv = require('dotenv');
 const connectDB = require("./config/database");
+const cors = require('cors');
 const productRoutes = require('./routes/productRoutes');
 const serviceRoutes = require('./routes/serviceRoutes');
+
 
 dotenv.config();
 
 connectDB(); // for connecting with our database
 const app = express();
+
 // As we need JSON data to be sent to client
 app.use(express.json());
+app.use(cors({ origin: 'http://digital-invoice-react-app.s3-website.eu-north-1.amazonaws.com' }));
 
 app.get('/', (req,res)=>{
     res.json({message: "API running..."});
@@ -18,6 +22,8 @@ app.get('/', (req,res)=>{
 // Routes
 app.use('/api/products',productRoutes);
 app.use('/api/services',serviceRoutes);
+
+
 
 const PORT = process.env.PORT || 5000;
 try {

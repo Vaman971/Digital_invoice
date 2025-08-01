@@ -5,7 +5,7 @@ export const getServices = () => async (dispatch) => {
   try {
     dispatch({ type: actionTypes.GET_SERVICES_REQUEST });
 
-    const { data } = await axios.get('/api/services');
+    const { data } = await axios.get(`${process.env.REACT_APP_API_URL}/api/services`);
 
     dispatch({
       type: actionTypes.GET_SERVICES_SUCCESS,
