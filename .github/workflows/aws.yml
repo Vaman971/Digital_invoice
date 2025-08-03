@@ -53,6 +53,7 @@ jobs:
 
     # Create GitHub Deployment
     - name: Create GitHub Deployment
+      id: deployment
       uses: bobheadxi/deployments@v1
       with:
         step: start
@@ -86,6 +87,6 @@ jobs:
         token: ${{ secrets.GITHUB_TOKEN }}
         status: success
         env: production
-        ref: ${{ github.ref }}
+        deployment_id: ${{ steps.deployment.outputs.deployment_id }}
         env_url: http://digital-invoice-react-app.s3-website.eu-north-1.amazonaws.com/
 
