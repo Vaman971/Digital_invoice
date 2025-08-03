@@ -13,7 +13,19 @@ const app = express();
 
 // As we need JSON data to be sent to client
 app.use(express.json());
-app.use(cors({ origin: 'http://digital-invoice-react-app.s3-website.eu-north-1.amazonaws.com' }));
+app.use(cors({
+  origin: function (origin, callback) {
+    const allowedOrigins = [
+      'http://digital-invoice-react-app.s3-website.eu-north-1.amazonaws.com',
+      'http://localhost:3000'
+    ];
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  }
+}));
 
 app.get('/', (req,res)=>{
     res.json({message: "API running..."});

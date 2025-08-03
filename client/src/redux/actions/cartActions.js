@@ -33,7 +33,7 @@ export const addToServiceCart = (id, qty) => async (dispatch, getState) => {
     try {
         // console.log("before fetching data");
         // console.log("id "+id);
-        const {data} = await axios.get(`/api/services/${id}`);
+        const {data} = await axios.get(`${process.env.REACT_APP_API_URL}/api/services/${id}`);
         // console.log("after fetching data");
 
     dispatch({

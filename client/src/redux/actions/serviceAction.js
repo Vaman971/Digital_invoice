@@ -26,7 +26,7 @@ export const getServicesDetails = (id) => async (dispatch) => {
   try {
     dispatch({ type: actionTypes.GET_SERVICE_DETAILS_REQUEST });
 
-    const { data } = await axios.get(`/api/services/${id}`);
+    const { data } = await axios.get(`${process.env.REACT_APP_API_URL}/api/services/${id}`);
 
     dispatch({
       type: actionTypes.GET_SERVICE_DETAILS_SUCCESS,
