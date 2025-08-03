@@ -22,12 +22,14 @@ jobs:
         npm install
         npm run build
 
-
+    # Install dependencies for backend
     - name: Debug AWS Secrets (sanitized)
       run: |
         echo "ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}"
         echo "SECRET_KEY_LENGTH=${{ secrets.AWS_SECRET_ACCESS_KEY != '' && 'OK' || 'EMPTY' }}"
 
+        
+    # Test AWS credentials
     - name: Test AWS credentials
       run: aws sts get-caller-identity
       env:
@@ -47,7 +49,18 @@ jobs:
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         AWS_REGION: eu-north-1
         SOURCE_DIR: client/build
-
+      
+    # Create GitHub Deployment
+    - name: Create GitHub Deployment
+      uses: bobheadxi/deployments@v1
+      with:
+        step: start
+        token: ${{ secrets.GITHUB_TOKEN }}
+        env: production
+        ref: ${{ github.ref }}
+        description: 'Deployment to S3'
+        log_url: http://digital-invoice-react-app.s3-website.eu-north-1.amazonaws.com/
+        environment_url: http://digital-invoice-react-app.s3-website.eu-north-1.amazonaws.com/
 
 
     # SSH into EC2 and deploy backend
@@ -62,3 +75,15 @@ jobs:
           git pull origin deploy
           npm install
           pm2 restart all
+
+
+    # Mark deployment as successful
+    - name: Mark deployment as successful
+      uses: bobheadxi/deployments@v1
+      with:
+        step: finish
+        token: ${{ secrets.GITHUB_TOKEN }}
+        status: success
+        env: production
+        ref: ${{ github.ref }}
+        environment_url: http://digital-invoice-react-app.s3-website.eu-north-1.amazonaws.com/
